@@ -14,7 +14,7 @@ module "ec2_instance" {
   iam_instance_profile = aws_iam_instance_profile.admin_profile.name
   vpc_security_group_ids = [
     aws_security_group.ingress_mongo.id,
-    # aws_security_group.ingress_ssh_all.id,
+    aws_security_group.ingress_ssh_all.id,
     aws_security_group.egress_internet.id
   ]
 
