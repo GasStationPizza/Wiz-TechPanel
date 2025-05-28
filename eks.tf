@@ -18,7 +18,7 @@ module "eks" {
   }
 
   # --- ADD THIS BLOCK TO DEFINE YOUR WORKER NODE GROUP ---
-  node_groups = {
+  worker_groups = {
     general-purpose = {
       desired_capacity = 3 # Or more, depending on your needs
       max_capacity     = 5
