@@ -96,25 +96,25 @@ resource "kubernetes_service_account" "web_app_service_account" {
 #        "app.kubernetes.io/name" = var.container_name
 #      }
 #    }
+# 1 more
+#    template {
+#      metadata {
+#        labels = {
+#          "app.kubernetes.io/name" = var.container_name
+#        }
+#      }
 
-    template {
-      metadata {
-        labels = {
-          "app.kubernetes.io/name" = var.container_name
-        }
-      }
-
-      spec {
-        service_account_name = kubernetes_service_account.web_app_service_account.metadata[0].name
-        container {
-          name  = var.container_name
-          image = "${aws_ecr_repository.this.repository_url}:${var.container_tag}"
-
-          port {
-            container_port = 3000
-          }
-        }
-      }
-    }
-  }
-}
+#      spec {
+#        service_account_name = kubernetes_service_account.web_app_service_account.metadata[0].name
+#        container {
+#          name  = var.container_name
+#          image = "${aws_ecr_repository.this.repository_url}:${var.container_tag}"
+#
+#          port {
+#            container_port = 3000
+#          }
+#        }
+#      }
+#    }
+#  }
+#}
