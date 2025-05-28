@@ -11,7 +11,7 @@ This repo deploys the following:
 - MongoDB running on an EC2 node
 - S3 for storing DB backups
 
-![Architecture](/images/architecture.png)
+
 
 # Terraform Docs
 
