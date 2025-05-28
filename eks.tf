@@ -108,8 +108,8 @@ resource "kubernetes_deployment" "web-app" {
         service_account_name = kubernetes_service_account.web_app_service_account.metadata[0].name
         container {
           name  = var.container_name
-          image = "${aws_ecr_repository.this.repository_url}:${var.container_tag}"
-
+          image = "376129847397.dkr.ecr.us-east-1.amazonaws.com/wiz-demo-web-app:latest"
+          #image = "${aws_ecr_repository.this.repository_url}:${var.container_tag}"
           port {
             container_port = 3000
           }
