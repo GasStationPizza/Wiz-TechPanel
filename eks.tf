@@ -8,39 +8,19 @@ module "eks" {
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.private_subnets
 
-  cluster_endpoint_public_access       = true
+  cluster_endpoint_public_access           = true
   enable_cluster_creator_admin_permissions = true
 
-  # This block is for enabling/disabling compute, but doesn't define the nodes themselves
   cluster_compute_config = {
     enabled    = true
-    node_pools = ["general-purpose"] # This just references the name
+    node_pools = ["general-purpose"]
   }
 
-  # --- ADD THIS BLOCK TO DEFINE YOUR WORKER NODE GROUP ---
-  worker_groups = {
-    general-purpose = {
-      desired_capacity = 3 # Or more, depending on your needs
-      max_capacity     = 5
-      min_capacity     = 1
 
-      instance_types = ["t3.medium"] # Choose an appropriate instance type
-      ami_type       = "AL2_x86_64"  # Or AL2_ARM_64, BOTTLEROCKET_x86_64, etc.
-
-      # Optional: Add disk size, labels, taints, etc.
-      disk_size = 20
-      labels = {
-        env = "dev"
-      }
-      tags = {
-        Name = "wiz-demo-worker-node"
-      }
-    }
-  }
-  # --------------------------------------------------------
 }
 
 resource "kubernetes_service" "web-app-service" {
+
   metadata {
     name = "${var.container_name}-service"
     annotations = {
@@ -58,6 +38,7 @@ resource "kubernetes_service" "web-app-service" {
       target_port = 3000
     }
 
+
     type                = "LoadBalancer"
     load_balancer_class = "eks.amazonaws.com/nlb"
   }
@@ -66,6 +47,7 @@ resource "kubernetes_service" "web-app-service" {
 }
 
 resource "kubernetes_service" "ec2-mongo-service" {
+
   metadata {
     name = "ec2-mongo-service"
   }
@@ -101,6 +83,7 @@ resource "kubernetes_service_account" "web_app_service_account" {
 }
 
 resource "kubernetes_deployment" "web-app" {
+
   metadata {
     name = var.container_name
   }
