@@ -16,7 +16,7 @@ variable "mongo_password" {
 variable "container_name" {
   type        = string
   description = "Name used for the web app container"
-  default     = "web-app"
+  default     = "web-appz"
 }
 
 variable "container_port" {
